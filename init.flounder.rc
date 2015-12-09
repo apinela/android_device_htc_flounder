@@ -98,6 +98,10 @@ on boot
     chown system system /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
     chmod 0660 /sys/devices/system/cpu/cpufreq/interactive/io_is_busy
 
+    # white notification LED
+    chown system system /sys/class/htc_sensorhub/sensor_hub/led_en
+    chmod 664           /sys/class/htc_sensorhub/sensor_hub/led_en
+
     # Enable CC4
     write /sys/devices/system/cpu/cpu0/cpuidle/state1/disabled 0
     write /sys/devices/system/cpu/cpu1/cpuidle/state1/disabled 0
@@ -192,12 +196,12 @@ on property:audio_hal.period_size=128
     write /sys/devices/system/cpu/cpufreq/interactive/rt_priority 1
 
 # bugreport is triggered by holding down volume down, volume up and power
-service bugreport /system/bin/dumpstate -d -p -B \
-        -o /data/data/com.android.shell/files/bugreports/bugreport
-    class late_start
-    disabled
-    oneshot
-    keycodes 114 115 116
+#service bugreport /system/bin/dumpstate -d -p -B \
+#        -o /data/data/com.android.shell/files/bugreports/bugreport
+#    class late_start
+#    disabled
+#    oneshot
+#    keycodes 114 115 116
 
 service p2p_supplicant /system/bin/wpa_supplicant \
     -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
